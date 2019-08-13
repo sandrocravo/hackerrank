@@ -1,0 +1,54 @@
+//https://www.hackerrank.com/challenges/quicksort3/problem
+import java.io.*;
+import java.util.*;
+
+public class Solution {
+
+  static int partition(int[] myArray,int l,int h) {
+    int x = myArray[h];
+    int i = (l - 1);     
+    for (int j = l; j <= h- 1; j++){
+      if (myArray[j] <= x){
+        i++;    
+        int temp = myArray[i];
+        myArray[i] = myArray[j];
+        myArray[j] = temp;
+      }
+    }
+    int temp = myArray[i+1];
+    myArray[i+1] = myArray[h];
+    myArray[h] = temp;
+    return (i + 1); 
+  }   
+ static void sort(int []myArray , int low, int high) { 
+     if(low >= high){
+      return ;
+     }else{ 
+      int pivot = partition(myArray,low,high);
+      printArray(myArray);
+      sort(myArray,low,pivot-1);
+      sort(myArray,pivot+1,high);
+     }
+  }
+     
+ static void printArray(int[] myArray) {
+    for(int n: myArray){
+      System.out.print(n+" ");
+    }
+    System.out.println("");
+  }
+
+
+    public static void main(String[] myArraygs) {
+      Scanner in = new Scanner(System.in);
+      int n = in.nextInt();
+      int[] myArray = new int[n];
+      for(int i=0;i<n;i++){
+        myArray[i]=in.nextInt(); 
+      }
+      sort(myArray,0,n-1);
+    }    
+
+    
+}
+

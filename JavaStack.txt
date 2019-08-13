@@ -1,0 +1,60 @@
+//https://www.hackerrank.com/challenges/java-stack/problem?h_r=internal-search
+
+import java.util.*;
+class Solution{
+	
+	public static void main(String []argh)
+	{
+		Scanner sc = new Scanner(System.in);
+		while (sc.hasNext()) {
+			String input=sc.next();
+            System.out.println(isBalanced(input));
+		}
+		
+	}
+    public static boolean isPaired(char prevS, char s) {
+        
+        if (prevS == '(') {
+            return (s == ')');
+        } else if (prevS == '{') {
+            return (s == '}');
+        } else if (prevS == '[') {
+            return (s == ']');
+        } 
+        return false;
+    }
+    
+    public static boolean isBegin(char s) {
+        return ((s == '(') || (s == '[') || (s == '{'));
+    }
+    
+    public static boolean isBalanced(String myString) {
+        Vector<String> unbalancedChars = new Vector<String>();
+        boolean balanced = true;
+        char lastChar;
+        
+        for (char c: myString.toCharArray()) {
+                   
+            if (unbalancedChars.isEmpty()) {
+               if (isBegin(c)) {
+                   unbalancedChars.add(c+"");
+               } else {
+                   return false; 
+               }
+            } else {
+                lastChar = unbalancedChars.lastElement().charAt(0);
+                if (isPaired(lastChar,c)) {
+                    unbalancedChars.remove(unbalancedChars.size()-1);
+                } else if (isBegin(c)) {
+                    unbalancedChars.add(c+"");
+                } else {
+                    return false;
+                }
+            }
+        }
+        return (unbalancedChars.isEmpty());
+    }
+}
+
+
+
